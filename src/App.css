@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+}
+
+.App {
+  width: 70%;
+  margin: auto;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+.container {
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  background: #555;
+  color: #fff;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #666;
+}
+
+.todoItem {
+  background: #f4f4f4;
+  padding: 10px;
+  border-bottom: 1px #ccc dotted;
+  list-style-type: none;
+}
+
+.btnEdit {
+  background: blue;
+}
+
+.btnDelete {
+  background: #ff0000;
+}
+
+.editSubmit,
+.editCancel,
+.btnDelete,
+.btnEdit {
+  color: #fff;
+  border: none;
+  padding: 5px 9px;
+  cursor: pointer;
+  float: right;
+  margin-left: 5px;
+}
+
+.editSubmit {
+  background: green;
+}
+
+.editCancel {
+  background: grey;
+}
+
+.editForm {
+  align-items: center;
+  display: flex;
+}
