@@ -1,10 +1,16 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export default class CheckAll extends Component {
+  everyChecked = (currentValue) => currentValue.checked;
 
-    render() {
-        return(
-            <div></div>
-        )
-    }
+  render() {
+    const { todos } = this.props;
+    return (
+      <>
+        <button onClick={() => this.props.checkAll()}>
+          {todos.every(this.everyChecked) ? "Uncheck All" : "Check All"}
+        </button>
+      </>
+    );
+  }
 }

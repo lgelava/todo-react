@@ -75,3 +75,25 @@ a {
   align-items: center;
   display: flex;
 }
+
+.paginationPages {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.paginationPages button {
+  margin-left: 10px;
+  background: green;
+  width: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.bottomBtnsDiv {
+  display: flex;
+  justify-content: space-between;
+}

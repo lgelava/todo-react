@@ -1,71 +1,72 @@
 import React, { Component } from "react";
 
 export default class todoItem extends Component {
+  // This is usseless here
+
+  // Use destructurization
+
   state = {
     editInputTitle: this.props.todo.title,
   };
+
   onCancel = (e) => {
+    const { todo } = this.props;
     e.preventDefault();
-    this.props.onEditBtnCancel(this.props.todo.id);
+    this.props.onEditBtnCancel(todo.id);
   };
 
   onEditSubmit = (e) => {
+    const { todo } = this.props;
+    const { editInputTitle } = this.state;
     e.preventDefault();
-    this.props.onEditBtnSubmit(this.props.todo.id, this.state.editInputTitle);
+    this.props.onEditBtnSubmit(todo.id, editInputTitle);
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    let output;
-    if (this.props.todo.editFormDisplayed) {
-      output = (
-        <li className="todoItem">
-          <form className="editForm">
+    const { todo, onCheck, onEditBtnClick, onDelete } = this.props;
+    return (
+      <div>
+        {todo.editFormDisplayed ? (
+          <li className="todoItem">
+            <form className="editForm">
+              <input
+                onChange={this.onChange}
+                type="text"
+                name="editInputTitle"
+                className="editInput"
+                defaultValue={todo.title}
+              />
+              <button
+                onClick={this.onEditSubmit}
+                type="submit"
+                className="editSubmit"
+              >
+                Submit
+              </button>
+              <button className="editCancel" onClick={this.onCancel}>
+                Cancel
+              </button>
+            </form>
+          </li>
+        ) : (
+          <li className="todoItem">
             <input
-              onChange={this.onChange}
-              type="text"
-              name="editInputTitle"
-              className="editInput"
-              defaultValue={this.props.todo.title}
-            />
-            <button
-              onClick={this.onEditSubmit}
-              type="submit"
-              className="editSubmit"
-            >
-              Submit
+              type="checkbox"
+              checked={todo.checked}
+              onChange={() => onCheck(todo.id)}
+            />{" "}
+            {todo.title}
+            <button className="btnDelete" onClick={() => onDelete(todo.id)}>
+              Delete
             </button>
-            <button className="editCancel" onClick={this.onCancel}>
-              Cancel
+            <button onClick={() => onEditBtnClick(todo.id)} className="btnEdit">
+              Edit
             </button>
-          </form>
-        </li>
-      );
-    } else {
-      output = (
-        <li className="todoItem">
-          <input
-            type="checkbox"
-            defaultChecked={this.props.todo.checked}
-            onChange={() => this.props.onCheck(this.props.todo.id)}
-          />{" "}
-          {this.props.todo.title}
-          <button
-            className="btnDelete"
-            onClick={() => this.props.onDelete(this.props.todo.id)}
-          >
-            Delete
-          </button>
-          <button
-            onClick={() => this.props.onEditBtnClick(this.props.todo.id)}
-            className="btnEdit"
-          >
-            Edit
-          </button>
-        </li>
-      );
-    }
-    return <>{output}</>;
+          </li>
+        )}
+      </div>
+    );
   }
 }

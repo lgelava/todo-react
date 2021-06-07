@@ -6,7 +6,7 @@ export default class Header extends Component {
     return (
       <div>
         <h3>TodoApp</h3>
-        <AddTodo onAdd={this.props.onAdd} />
+        <AddTodo onAdd={this.props.onAdd} todos={this.props.todos} />
       </div>
     );
   }

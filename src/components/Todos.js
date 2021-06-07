@@ -3,15 +3,24 @@ import TodoItem from "./TodoItem";
 
 class Todos extends Component {
   render() {
-    return this.props.todos.map((todo) => (
+    const {
+      todos,
+      onCheck,
+      onDelete,
+      onEditBtnClick,
+      onEditBtnCancel,
+      onEditBtnSubmit,
+    } = this.props;
+    return todos.map((todo) => (
       <TodoItem
         key={todo.id}
         todo={todo}
-        onCheck={this.props.onCheck}
-        onDelete={this.props.onDelete}
-        onEditBtnClick={this.props.onEditBtnClick}
-        onEditBtnCancel={this.props.onEditBtnCancel}
-        onEditBtnSubmit={this.props.onEditBtnSubmit}
+        todos={todos}
+        onCheck={onCheck}
+        onDelete={onDelete}
+        onEditBtnClick={onEditBtnClick}
+        onEditBtnCancel={onEditBtnCancel}
+        onEditBtnSubmit={onEditBtnSubmit}
       />
     ));
   }
