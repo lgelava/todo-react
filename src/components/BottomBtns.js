@@ -8,14 +8,12 @@ export default class BottomBtns extends Component {
     const { todos, checkAll, onDeleteAllChecked } = this.props;
     return (
       <div className="bottomBtnsDiv">
-        {todos.length > 0 ? (
-          <CheckAll todos={todos} checkAll={checkAll} />
-        ) : null}
-        {todos.some(this.everyChecked) ? (
-          <button onClick={() => onDeleteAllChecked()}>
+        {todos.length > 0 && <CheckAll todos={todos} checkAll={checkAll} />}
+        {todos.some(this.everyChecked) && (
+          <button className="btn" onClick={() => onDeleteAllChecked()}>
             Delete All Checked
           </button>
-        ) : null}
+        )}
       </div>
     );
   }

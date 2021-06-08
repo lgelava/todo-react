@@ -7,7 +7,7 @@ export default class CheckAll extends Component {
     const { todos } = this.props;
     return (
       <>
-        <button onClick={() => this.props.checkAll()}>
+        <button className="btn" onClick={() => this.props.checkAll()}>
           {todos.every(this.everyChecked) ? "Uncheck All" : "Check All"}
         </button>
       </>
