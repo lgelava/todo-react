@@ -1,26 +1,31 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
+import { connect } from "react-redux";
 
-export default class AddTodo extends Component {
-  state = {
-    title: "",
+class AddTodo extends Component {
+  inputRef = createRef();
+
+  onAdd = () => {
+    const newTodo = {
+      id: Date.now(),
+      title: this.inputRef.current.value,
+      checked: false,
+    };
+    if (this.inputRef.current.value) {
+      this.props.addTodo(newTodo);
+      this.inputRef.current.value = "";
+      this.props.pageChanger();
+    }
   };
-
-  onSubmit = (e) => {
-    e.preventDefault();
-    this.props.onAdd(this.state.title);
-    this.setState({ title: "" });
-  };
-
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     return (
       <div>
-        <form style={{ display: "flex" }} onSubmit={this.onSubmit}>
+        <div style={{ display: "flex" }}>
           <input
             type="text"
+            ref={this.inputRef}
             name="title"
-            value={this.state.title}
+            value={this.inputRef.value}
             style={{ flex: "10", padding: "5px" }}
             placeholder="Add Todo ..."
             onChange={this.onChange}
@@ -30,9 +35,23 @@ export default class AddTodo extends Component {
             value="Submit"
             className="btn"
             style={{ flex: "1" }}
+            onClick={() => this.onAdd()}
           />
-        </form>
+        </div>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addTodo: (newTodo) => {
+      dispatch({ type: "ADD_TODO", newTodo });
+    },
+    pageChanger: () => {
+      dispatch({ type: "PAGE_CHANGER" });
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AddTodo);

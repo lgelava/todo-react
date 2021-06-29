@@ -1,6 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-export default class Pagination extends Component {
+class Pagination extends Component {
+  // paginate = (pageNumber) => {
+  //   this.setState((prevState) => ({
+  //     pagination: {
+  //       ...prevState.pagination,
+  //       currentPage: pageNumber,
+  //     },
+  //   }));
+  // };
   render() {
     const { todos, todosPerPage, paginate } = this.props;
 
@@ -9,14 +18,29 @@ export default class Pagination extends Component {
     for (let i = 1; i <= Math.ceil(todos.length / todosPerPage); i++) {
       pageNumbers.push(i);
     }
+
     return (
       <div className="paginationPages">
-        {pageNumbers.map((number) => (
-          <button onClick={() => paginate(number)} key={number} className="btn">
-            {number}
+        {pageNumbers.map((pageNumber) => (
+          <button
+            onClick={() => this.props.pageClick(pageNumber)}
+            key={pageNumber}
+            className="btn"
+          >
+            {pageNumber}
           </button>
         ))}
       </div>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    pageClick: (pageNumber) => {
+      dispatch({ type: "PAGE_CLICK", pageNumber });
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Pagination);
