@@ -1,42 +1,61 @@
 import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { addTodo, pageChanger } from "../redux/actions/todoActions";
+import axios from "axios";
 
 class AddTodo extends Component {
   inputRef = createRef();
 
-  onAdd = () => {
+  onAdd = (title) => {
     const newTodo = {
-      id: Date.now(),
-      title: this.inputRef.current.value,
+      title,
       checked: false,
     };
     if (this.inputRef.current.value) {
-      this.props.addTodo(newTodo);
-      this.inputRef.current.value = "";
-      this.props.pageChanger();
+      const { addTodo, pageChanger } = this.props.actions;
+
+      axios
+        .post("http://localhost:9000/todos/addtodohandler", {
+          title,
+          checked: false,
+        })
+        .then((res) => {
+          addTodo(res.data);
+          this.inputRef.current.value = "";
+          pageChanger();
+        });
+    }
+  };
+
+  onEnter = (e) => {
+    if (e.keyCode === 13) {
+      this.onAdd(this.inputRef.current.value);
     }
   };
 
   render() {
     return (
       <div>
-        <div style={{ display: "flex" }}>
+        <div
+          className="addTodoDiv"
+          style={{ display: "flex", marginTop: "50px" }}
+        >
           <input
+            className="addTodoInput"
             type="text"
             ref={this.inputRef}
             name="title"
             value={this.inputRef.value}
-            style={{ flex: "10", padding: "5px" }}
             placeholder="Add Todo ..."
-            onChange={this.onChange}
+            onKeyUp={this.onEnter}
           />
-          <input
-            type="submit"
-            value="Submit"
-            className="btn"
-            style={{ flex: "1" }}
-            onClick={() => this.onAdd()}
-          />
+          <button
+            className="createTodoSubmitButton btn btn-success"
+            onClick={() => this.onAdd(this.inputRef.current.value)}
+          >
+            Create
+          </button>
         </div>
       </div>
     );
@@ -44,13 +63,23 @@ class AddTodo extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
+  // return {
+  //   addTodo: (newTodo) => {
+  //     dispatch({ type: "ADD_TODO", newTodo });
+  //   },
+  //   pageChanger: () => {
+  //     dispatch({ type: "PAGE_CHANGER" });
+  //   },
+  // };
+
   return {
-    addTodo: (newTodo) => {
-      dispatch({ type: "ADD_TODO", newTodo });
-    },
-    pageChanger: () => {
-      dispatch({ type: "PAGE_CHANGER" });
-    },
+    actions: bindActionCreators(
+      {
+        addTodo,
+        pageChanger,
+      },
+      dispatch
+    ),
   };
 };
 

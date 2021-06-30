@@ -22,8 +22,8 @@ export const submitEditTodo = (id, newText) => ({
   newText,
 });
 
-export const CHECK_TODO = (id) => ({
-  type: CHECK_TODO,
+export const checkTodo = (id) => ({
+  type: actionTypes.CHECK_TODO,
   id,
 });
 
@@ -54,4 +54,10 @@ export const getTodosHandler = (todoList) => ({
 
 export const pageChanger = () => ({
   type: actionTypes.PAGE_CHANGER,
+});
+
+export const editTodo = (id, newText) => ({
+  type: actionTypes.SUBMIT_EDIT_TODO,
+  id,
+  newText,
 });

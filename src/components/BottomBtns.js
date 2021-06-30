@@ -1,12 +1,20 @@
 import React, { Component } from "react";
 import CheckAll from "./CheckAll";
 import { connect } from "react-redux";
+import axios from "axios";
 
 class BottomBtns extends Component {
   oneChecked = (currentValue) => currentValue.checked;
   onDeleteAllCheckedTodos = (todos) => {
-    this.props.deleteAllChecked(todos);
-    this.props.pageChanger();
+    const { deleteAllChecked, pageChanger } = this.props;
+    // this.props.deleteAllChecked(todos);
+    // this.props.pageChanger();
+    return axios
+      .delete(`http://localhost:9000/todos/deletealltodoschecked`)
+      .then(() => {
+        deleteAllChecked(todos);
+        pageChanger();
+      });
   };
 
   render() {

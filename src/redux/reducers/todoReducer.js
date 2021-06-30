@@ -13,18 +13,19 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         todos: [...todos, action.newTodo],
       };
+
     case actionTypes.SUBMIT_EDIT_TODO:
       return {
         ...state,
         todos: todos.map((el) =>
-          el.id === action.id ? { ...el, title: action.newText } : el
+          el._id === action.id ? { ...el, title: action.newText } : el
         ),
       };
     case actionTypes.CHECK_TODO:
       return {
         ...state,
         todos: todos.map((item) =>
-          item.id === action.id ? { ...item, checked: !item.checked } : item
+          item._id === action.id ? { ...item, checked: !item.checked } : item
         ),
       };
     case actionTypes.CHECK_ALL_TODOS:
@@ -39,8 +40,9 @@ const todoReducer = (state = initialState, action) => {
     case actionTypes.DELETE_TODO:
       return {
         ...state,
-        todos: todos.filter((item) => item.id !== action.id),
+        todos: todos.filter((item) => item._id !== action.id),
       };
+
     case actionTypes.PAGE_CLICK:
       return {
         ...state,

@@ -1,6 +1,14 @@
 import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import axios from "axios";
 
+import {
+  checkTodo,
+  deleteTodo,
+  pageChanger,
+  editTodo,
+} from "../redux/actions/todoActions";
 class TodoItem extends Component {
   state = {
     editFormDisplayed: false,
@@ -12,10 +20,16 @@ class TodoItem extends Component {
     this.setState({ editFormDisplayed: false });
   };
 
-  onEditSubmit = () => {
+  onEditSubmit = (id, title) => {
     const { todo } = this.props;
     this.setState({ editFormDisplayed: false });
-    this.props.editTodo(todo.id, this.inputRef.current.value);
+    const { editTodo } = this.props.actions;
+    // editTodo(todo.id, this.inputRef.current.value);
+    axios
+      .put(`http://localhost:9000/todos/edittodo/${id}`, {
+        title: title,
+      })
+      .then(() => editTodo(id, title));
   };
 
   onEditBtnClick = () => {
@@ -23,10 +37,24 @@ class TodoItem extends Component {
   };
 
   onDelete = (id) => {
-    this.props.deleteTodo(id);
-    this.props.pageChanger();
+    const { deleteTodo, pageChanger } = this.props.actions;
+    axios.delete(`http://localhost:9000/todos/deleteTodo/${id}`).then(() => {
+      deleteTodo(id);
+      pageChanger();
+    });
   };
 
+  onCheck = (id, checked) => {
+    const { checkTodo } = this.props.actions;
+
+    axios
+      .put(`http://localhost:9000/todos/checktodos/${id}`, {
+        checked: !checked,
+      })
+      .then(() => {
+        checkTodo(id, checked);
+      });
+  };
   render() {
     const { todo } = this.props;
 
@@ -43,7 +71,9 @@ class TodoItem extends Component {
                 ref={this.inputRef}
               />
               <button
-                onClick={() => this.onEditSubmit()}
+                onClick={() =>
+                  this.onEditSubmit(todo._id, this.inputRef.current.value)
+                }
                 type="submit"
                 className="editSubmit"
               >
@@ -59,12 +89,12 @@ class TodoItem extends Component {
             <input
               type="checkbox"
               checked={todo.checked}
-              onChange={() => this.props.checkTodo(todo.id)}
+              onChange={() => this.onCheck(todo._id, todo.checked)}
             />{" "}
             {todo.title}
             <button
               className="btnDelete"
-              onClick={() => this.onDelete(todo.id)}
+              onClick={() => this.onDelete(todo._id)}
             >
               Delete
             </button>
@@ -87,18 +117,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkTodo: (id) => {
-      dispatch({ type: "CHECK_TODO", id });
-    },
-    deleteTodo: (id) => {
-      dispatch({ type: "DELETE_TODO", id });
-    },
-    editTodo: (id, newText) => {
-      dispatch({ type: "SUBMIT_EDIT_TODO", id, newText });
-    },
-    pageChanger: () => {
-      dispatch({ type: "PAGE_CHANGER" });
-    },
+    actions: bindActionCreators(
+      {
+        checkTodo,
+        deleteTodo,
+        pageChanger,
+        editTodo,
+      },
+      dispatch
+    ),
   };
 };
 

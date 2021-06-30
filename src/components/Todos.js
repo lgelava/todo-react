@@ -5,10 +5,19 @@ import BottomBtns from ".//BottomBtns";
 import Pagination from ".//Pagination";
 import { connect } from "react-redux";
 import axios from "axios";
+import { bindActionCreators } from "redux";
+import { getTodosHandler } from "../redux/actions/todoActions";
 
 class Todos extends Component {
+  componentDidMount() {
+    axios
+      .get("http://localhost:9000/todos/getAllToDos")
+      .then((res) => this.props.actions.getTodosHandler(res.data));
+  }
+
   render() {
     const { todos, pagination } = this.props.todos;
+
     //Get Current Todos
 
     const indexOfLastTodo = pagination.currentPage * pagination.todosPerPage;
@@ -19,21 +28,14 @@ class Todos extends Component {
         <Header todos={todos} />
         <BottomBtns todos={todos} />
         {curretTodos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} todos={curretTodos} />
+          <TodoItem key={todo._id} todo={todo} todos={curretTodos} />
         ))}
 
         <Pagination todosPerPage={pagination.todosPerPage} todos={todos} />
-        <button onClick={getTodos}>sdfs</button>
       </>
     );
   }
 }
-
-const getTodos = () => {
-  axios
-    .get("http://localhost:9000/todos/getAllToDos")
-    .then((res) => this.props.getTodosHandler(res.data));
-};
 
 const mapStateToProps = (state) => {
   return {
@@ -44,12 +46,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    pageChanger: () => {
-      dispatch({ type: "PAGE_CHANGER" });
-    },
-    getTodosHandler: () => {
-      dispatch({ type: "GET_TODOS_HANDLER" });
-    },
+    actions: bindActionCreators(
+      {
+        getTodosHandler,
+      },
+      dispatch
+    ),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);
