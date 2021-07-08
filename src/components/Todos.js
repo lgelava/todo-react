@@ -11,9 +11,33 @@ import { getTodosHandler } from "../redux/actions/todoActions";
 class Todos extends Component {
   componentDidMount() {
     axios
-      .get("http://localhost:9000/todos/getAllToDos")
-      .then((res) => this.props.actions.getTodosHandler(res.data));
+      .get(
+        `http://localhost:9000/todos/getAllToDos/${localStorage.getItem(
+          "author"
+        )}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) =>
+        this.props.actions.getTodosHandler(
+          res.data,
+          localStorage.getItem("author")
+        )
+      )
+      .catch((err) => {
+        this.props.history.push("/");
+      });
   }
+
+  logOut = () => {
+    // localStorage.removeItem("token");
+
+    localStorage.clear();
+    this.props.history.push("/");
+  };
 
   render() {
     const { todos, pagination } = this.props.todos;
@@ -22,9 +46,26 @@ class Todos extends Component {
 
     const indexOfLastTodo = pagination.currentPage * pagination.todosPerPage;
     const indexOfFirstTodo = indexOfLastTodo - pagination.todosPerPage;
+
     const curretTodos = todos.slice(indexOfFirstTodo, indexOfLastTodo);
+
     return (
       <>
+        <button
+          onClick={() => this.logOut()}
+          style={{
+            float: "right",
+            background: "#dc413c",
+            fontSize: "20px",
+            borderRadius: "5px",
+            marginTop: "30px",
+          }}
+          className="btn"
+        >
+          {/* <BiLogIn style={{ color: "grey", fontSize: "32px" }} />
+           */}
+          Log Out
+        </button>
         <Header todos={todos} />
         <BottomBtns todos={todos} />
         {curretTodos.map((todo) => (

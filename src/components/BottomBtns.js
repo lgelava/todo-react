@@ -24,7 +24,7 @@ class BottomBtns extends Component {
         {todos.length > 0 && <CheckAll todos={todos} checkAll={checkAll} />}
         {todos.some(this.oneChecked) && (
           <button
-            className="btn"
+            className="btn delete_all_checked"
             onClick={() => this.onDeleteAllCheckedTodos(todos)}
           >
             Delete All Checked

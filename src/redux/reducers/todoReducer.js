@@ -2,7 +2,10 @@ import { actionTypes } from "../actions/todoActions";
 
 const initialState = {
   todos: [],
-  pagination: { currentPage: 1, todosPerPage: 5 },
+  pagination: {
+    currentPage: 1,
+    todosPerPage: localStorage.getItem("todosPerPage"),
+  },
 };
 
 const todoReducer = (state = initialState, action) => {
@@ -66,7 +69,16 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         pagination: {
           ...state.pagination,
-          currentPage: Math.ceil(todos.length / 5),
+          currentPage: Math.ceil(todos.length / state.pagination.todosPerPage),
+        },
+      };
+
+    case actionTypes.ON_SELECT_CHANGE:
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          todosPerPage: action.event,
         },
       };
 

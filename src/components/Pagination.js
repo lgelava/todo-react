@@ -2,16 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 class Pagination extends Component {
-  // paginate = (pageNumber) => {
-  //   this.setState((prevState) => ({
-  //     pagination: {
-  //       ...prevState.pagination,
-  //       currentPage: pageNumber,
-  //     },
-  //   }));
-  // };
   render() {
-    const { todos, todosPerPage, paginate } = this.props;
+    const { todos, todosPerPage } = this.props;
 
     const pageNumbers = [];
 

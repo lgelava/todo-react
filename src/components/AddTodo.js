@@ -8,10 +8,11 @@ class AddTodo extends Component {
   inputRef = createRef();
 
   onAdd = (title) => {
-    const newTodo = {
-      title,
-      checked: false,
-    };
+    // const newTodo = {
+    //   title,
+    //   checked: false,
+    //   author: "",
+    // };
     if (this.inputRef.current.value) {
       const { addTodo, pageChanger } = this.props.actions;
 
@@ -19,6 +20,7 @@ class AddTodo extends Component {
         .post("http://localhost:9000/todos/addtodohandler", {
           title,
           checked: false,
+          author: localStorage.getItem("author"),
         })
         .then((res) => {
           addTodo(res.data);
@@ -63,15 +65,6 @@ class AddTodo extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  // return {
-  //   addTodo: (newTodo) => {
-  //     dispatch({ type: "ADD_TODO", newTodo });
-  //   },
-  //   pageChanger: () => {
-  //     dispatch({ type: "PAGE_CHANGER" });
-  //   },
-  // };
-
   return {
     actions: bindActionCreators(
       {

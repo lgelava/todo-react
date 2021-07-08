@@ -21,10 +21,9 @@ class TodoItem extends Component {
   };
 
   onEditSubmit = (id, title) => {
-    const { todo } = this.props;
     this.setState({ editFormDisplayed: false });
     const { editTodo } = this.props.actions;
-    // editTodo(todo.id, this.inputRef.current.value);
+
     axios
       .put(`http://localhost:9000/todos/edittodo/${id}`, {
         title: title,
@@ -86,12 +85,15 @@ class TodoItem extends Component {
           </li>
         ) : (
           <li className="todoItem">
-            <input
-              type="checkbox"
-              checked={todo.checked}
-              onChange={() => this.onCheck(todo._id, todo.checked)}
-            />{" "}
-            {todo.title}
+            <div className="item_with_checkbox">
+              <input
+                type="checkbox"
+                checked={todo.checked}
+                className="checkbox"
+                onChange={() => this.onCheck(todo._id, todo.checked)}
+              />{" "}
+              <p className="todo_title">{todo.title}</p>
+            </div>
             <button
               className="btnDelete"
               onClick={() => this.onDelete(todo._id)}

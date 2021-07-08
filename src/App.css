@@ -5,8 +5,10 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background: #f3f3f3;
 }
 
 .App {
@@ -37,8 +39,8 @@ a {
 }
 
 .todoItem {
-  background: #f4f4f4;
-  border-bottom: 1px #ccc dotted;
+  /* background: #f4f4f4; */
+
   list-style-type: none;
   height: 70px;
   padding-top: 18px;
@@ -46,14 +48,29 @@ a {
   padding-left: 15px;
   padding-right: 15px;
   font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .btnEdit {
-  background: blue;
+  background: royalblue;
+}
+
+.btnEdit:hover {
+  color: royalblue;
+  border: 1px solid royalblue;
+  background: transparent;
 }
 
 .btnDelete {
-  background: #ff0000;
+  background: #dc413c;
+}
+
+.btnDelete:hover {
+  background: transparent;
+  color: #dc413c;
+  border: 1px solid #dc413c;
 }
 
 .editSubmit,
@@ -73,16 +90,29 @@ a {
 }
 
 .editSubmit {
-  background: green;
+  background: royalblue;
+}
+
+.editSubmit:hover {
+  background-color: transparent;
+  color: royalblue;
+  border: 1px solid royalblue;
 }
 
 .editCancel {
   background: #dc413c;
 }
 
+.editCancel:hover {
+  background: transparent;
+  color: #dc413c;
+  border: 1px solid #dc413c;
+}
+
 .editForm {
   align-items: center;
   display: flex;
+  width: 100%;
 }
 
 .editForm input {
@@ -90,7 +120,7 @@ a {
   height: 40px;
   outline: none !important;
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #dedede;
   background: transparent;
   width: 89%;
 }
@@ -104,7 +134,7 @@ a {
 
 .paginationPages button {
   margin-left: 10px;
-  background: green;
+  background: royalblue;
   width: 50px;
   padding: 5px;
   border-radius: 5px;
@@ -123,17 +153,20 @@ a {
   background: blue;
   border-radius: 5px;
   padding: 5px;
-  color: black;
-  width: 170px;
+  width: 200px;
   height: 50px;
-  background-color: white;
-  font-size: 18px;
+  background-color: royalblue;
+  color: white;
+  font-size: 16px;
   border-radius: 10px;
-  border: 1px solid black;
+  letter-spacing: 1.5px;
+  font-weight: bold;
 }
 
 .bottomBtnsDiv button:hover {
-  background-color: lightgrey;
+  background-color: transparent;
+  color: royalblue;
+  border: 1px solid royalblue;
 }
 
 .addTodoDiv {
@@ -156,10 +189,6 @@ a {
   font-size: 18px;
 }
 .createTodoSubmitButton {
-  /* width: 120px;
-  height: 40px;
-  background: green;
-  font-size: 18px; */
   width: 140px;
   height: 45px;
   background-color: royalblue;
@@ -172,6 +201,7 @@ a {
   border: 1px solid royalblue;
   border-radius: 5px;
   margin-left: 2%;
+  font-weight: bold;
 }
 
 .createTodoSubmitButton:hover {
@@ -189,4 +219,164 @@ a {
 
 h2 {
   margin-top: 50px;
+}
+
+.delete_all_checked {
+  background: #dc413c !important;
+}
+
+.delete_all_checked:hover {
+  color: #dc413c !important;
+  border: 1px solid #dc413c !important;
+  background-color: transparent !important;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+}
+
+.item_with_checkbox {
+  display: flex;
+  align-items: center;
+  width: 90%;
+}
+
+.todo_title {
+  margin-left: 15px;
+  letter-spacing: 1.5px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10vh;
+  background: rgb(73, 79, 82);
+  color: white;
+}
+
+.nav_ul {
+  display: flex;
+}
+
+.nav_ul li {
+  list-style: none;
+  cursor: pointer;
+  margin-left: 30px;
+  color: white;
+}
+
+.login_bg_img {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.login_outer,
+.register_outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.login_outer .form,
+.register_outer .form {
+  display: flex;
+  width: 80vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  margin: 10px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.login_outer input,
+.register_outer input {
+  width: 55%;
+  padding: 8px;
+  margin: 10px;
+  height: 32px;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px solid #dedede;
+  margin-top: 30px;
+}
+
+.login-btn,
+.register-btn {
+  font-size: 1.5rem;
+  border: none;
+  height: 54px;
+  width: 55%;
+  margin: 20px 10px;
+  border-radius: 7px;
+  background-color: #3a5fbb;
+  color: #ffffff;
+  box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 30%);
+  cursor: pointer;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.my_profile {
+  background: royalblue;
+  font-size: 20px;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.my_profile:hover {
+  color: royalblue;
+  border: 1px solid royalblue;
+  background-color: transparent;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar_card {
+  background: white;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  /* box-shadow: 3px 3px rgb(80, 79, 79);
+   */
+  filter: drop-shadow(0 0 0.75rem rgb(10, 10, 10));
+  padding-bottom: 100px;
+}
+
+.avatar_card input {
+  width: 70%;
+  border-radius: 30px;
+  margin-top: 20px;
+  height: 50px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.avatar_card input:focus {
+  outline: none;
+}
+
+.update_profile {
+  background-color: royalblue;
+  font-size: 22px;
+  border-radius: 10px;
+  margin-top: 30px;
+  width: 70%;
 }

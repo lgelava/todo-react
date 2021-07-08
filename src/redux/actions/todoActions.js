@@ -9,6 +9,7 @@ export const actionTypes = {
   GET_TODOS_HANDLER: "GET_TODOS_HANDLER",
   DELETE_ALL_CHECKED: "DELETE_ALL_CHECKED",
   PAGE_CHANGER: "PAGE_CHANGER",
+  ON_SELECT_CHANGE: "ON_SELECT_CHANGE",
 };
 
 export const addTodo = (newTodo) => ({
@@ -47,9 +48,10 @@ export const deleteAllTodosChecked = (todos) => ({
   todos,
 });
 
-export const getTodosHandler = (todoList) => ({
+export const getTodosHandler = (todoList, author) => ({
   type: actionTypes.GET_TODOS_HANDLER,
   todoList,
+  author,
 });
 
 export const pageChanger = () => ({
@@ -60,4 +62,9 @@ export const editTodo = (id, newText) => ({
   type: actionTypes.SUBMIT_EDIT_TODO,
   id,
   newText,
+});
+
+export const onSelectChange = (event) => ({
+  type: actionTypes.ON_SELECT_CHANGE,
+  event,
 });
