@@ -1,7 +1,8 @@
+import axios from "axios";
 import { actionTypes } from "../actions/userActions";
 
 const initialState = {
-  users: [],
+  users: {},
 };
 
 const userReducer = (state = initialState, action) => {
@@ -11,32 +12,21 @@ const userReducer = (state = initialState, action) => {
     case actionTypes.ADD_NEW_USER:
       return {
         ...state,
-        users: [...users, action.newUser],
-      };
-
-    case actionTypes.USER_LOGS_IN:
-      return {
-        ...state,
-        users: users.filter((user) => user._id === action.id),
+        users: action.newUser,
       };
 
     case actionTypes.PROFILE_PAGE_RENDERED:
       return {
         ...state,
-        ...users,
-        userName: action.user.userName,
-        email: action.user.email,
+        users: action.users,
       };
 
     case actionTypes.SAVE_USER_CHANGES:
-      console.log(action.userName);
       return {
         ...state,
-        users: users.map((user) =>
-          user._id === action.author
-            ? { ...user, userName: action.userName, email: action.email }
-            : user
-        ),
+        ...users,
+        userName: action.newUserName,
+        email: action.newEmail,
       };
 
     default:

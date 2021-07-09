@@ -373,10 +373,15 @@ nav {
   outline: none;
 }
 
-.update_profile {
+.update_profile,
+.change_password {
   background-color: royalblue;
   font-size: 22px;
   border-radius: 10px;
   margin-top: 30px;
   width: 70%;
+}
+
+.change_password {
+  width: 100%;
 }

@@ -5,10 +5,12 @@ import store from "./redux/store";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./components/Profile";
+import ChangePassword from "./components/ChangePassword";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./App.css";
+import axios from "axios";
 
 class App extends Component {
   render() {
@@ -21,6 +23,7 @@ class App extends Component {
               <Route path="/" exact component={Login} />
               <Route path="/todos" component={Todos} />
               <Route path="/profile" component={Profile} />
+              <Route path="/changepassword" component={ChangePassword} />
             </Switch>
           </Router>
         </div>

@@ -3,6 +3,7 @@ export const actionTypes = {
   USER_LOGS_IN: "USER_LOGS_IN",
   PROFILE_PAGE_RENDERED: "PROFILE_PAGE_RENDERED",
   SAVE_USER_CHANGES: "SAVE_USER_CHANGES",
+  PROFILE_FIELDS_DISPLAYED: "PROFILE_FIELDS_DISPLAYED",
 };
 
 export const addNewUser = (newUser) => ({
@@ -15,14 +16,18 @@ export const userLogsIn = (id) => ({
   id,
 });
 
-export const profilePageRendered = (user) => ({
+export const profilePageRendered = (users) => ({
   type: actionTypes.PROFILE_PAGE_RENDERED,
-  user,
+  users,
 });
 
-export const saveUserChanges = (author, userName, email) => ({
+export const saveUserChanges = (newUserName, newEmail) => ({
   type: actionTypes.SAVE_USER_CHANGES,
-  author,
-  userName,
-  email,
+  newUserName,
+  newEmail,
 });
+
+// export const passwordChanger = (newPassword) => ({
+//   type: actionTypes.PASSWORD_CHANGER,
+//   newPassword
+// })
